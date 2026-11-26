@@ -42,6 +42,7 @@ Route::prefix('v1')->group(function () {
     Route::get('plans', [CatalogController::class, 'plans']);
     Route::get('showcase', [CatalogController::class, 'showcase']);
     Route::get('contact-info', [CatalogController::class, 'contactInfo']);
+    Route::get('contact', [CatalogController::class, 'contactInfo']);
 
     Route::get('design-formats', [DesignFormatController::class, 'index']);
     Route::get('design-formats/{slug}', [DesignFormatController::class, 'show']);
