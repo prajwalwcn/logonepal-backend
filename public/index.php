@@ -13,6 +13,16 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 // Register the Composer autoloader...
 require __DIR__.'/../vendor/autoload.php';
 
+// Normalize SCRIPT_NAME for subfolder deployments (e.g. /logonepal)
+if (isset($_SERVER['SCRIPT_NAME']) && isset($_SERVER['REQUEST_URI'])) {
+    if (str_contains($_SERVER['SCRIPT_NAME'], '/public/index.php') && !str_contains($_SERVER['REQUEST_URI'], '/public/')) {
+        $_SERVER['SCRIPT_NAME'] = str_replace('/public/index.php', '/index.php', $_SERVER['SCRIPT_NAME']);
+        if (isset($_SERVER['PHP_SELF'])) {
+            $_SERVER['PHP_SELF'] = str_replace('/public/index.php', '/index.php', $_SERVER['PHP_SELF']);
+        }
+    }
+}
+
 // Bootstrap Laravel and handle the request...
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
