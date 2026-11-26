@@ -13,10 +13,10 @@ return [
         'http://127.0.0.1:3000',
     ])),
 
-    // Dev convenience: any localhost port is accepted outside production.
-    'allowed_origins_patterns' => env('APP_ENV') === 'local'
-        ? ['#^http://(localhost|127\.0\.0\.1):\d+$#']
-        : [],
+    'allowed_origins_patterns' => array_merge(
+        ['#^https?://.*\.vercel\.app$#'],
+        env('APP_ENV') === 'local' ? ['#^http://(localhost|127\.0\.0\.1):\d+$#'] : []
+    ),
 
     'allowed_headers' => ['*'],
 
